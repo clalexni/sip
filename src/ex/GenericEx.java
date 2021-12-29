@@ -1,4 +1,4 @@
-package examples;
+package ex;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ interface Listable {
 }
 */
 
-public class GenericExamples {
+public class GenericEx {
 
   private static <T> void copy(List<? super T> dst, List<? extends T> src) {
     // dst limits to superclass of T or T itself
