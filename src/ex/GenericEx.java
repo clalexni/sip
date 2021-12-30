@@ -30,7 +30,7 @@ public class GenericEx {
     }
   }
 
-  public static <T extends Comparable<? super T>> T max(Collection <T> col) {
+  private static <T extends Comparable<? super T>> T max(Collection <T> col) {
     // Type Bound
     T max = col.iterator().next(); // first item
     for (T item: col) {
@@ -46,7 +46,7 @@ public class GenericEx {
     example2();
   }
 
-  public static void example1() {
+  private static void example1() {
     List<Integer> ints = Arrays.asList(1, 2);
     List<Number> nums = new ArrayList<>();
     nums.add(1);
@@ -60,7 +60,7 @@ public class GenericEx {
     printList(ints);
   }
 
-  public static void example2() {
+  private static void example2() {
     List<Apple> apples = Arrays.asList(new Apple(1), new Apple(2));
     List<Orange> oranges = Arrays.asList(new Orange(1), new Orange(2));
     List<Fruit> fruits = Arrays.asList(new Apple(1), new Orange(2));
