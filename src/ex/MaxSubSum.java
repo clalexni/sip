@@ -5,7 +5,7 @@ public class MaxSubSum {
 
   // O(n)
   public static int maxSubSum1(int[] a) {
-    // sum from left to right, reset is negative
+    // sum from left to right, reset if negative
     int max = 0;
     int currentSum = 0;
     for (int n: a) {
