@@ -1,7 +1,5 @@
 package ex;
 
-import javax.swing.plaf.synth.SynthIcon;
-
 public class BS_gcd_exp {
 
   public static <T extends Comparable<? super T>> int bs(T[] orderedList, T target) {
