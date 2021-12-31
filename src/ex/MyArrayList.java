@@ -1,4 +1,4 @@
-package p1;
+package ex;
 
 public class MyArrayList {
   
