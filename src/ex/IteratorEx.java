@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
 
 
-public class IterEx {
+public class IteratorEx {
 
   public static void removeEvensVer1(List<Integer> lst) {
     int i = 0;
@@ -54,11 +54,11 @@ class TestIterEx {
     System.out.println(al);
     System.out.println(ll);
 
-    IterEx.removeEvensVer1(al);
-    IterEx.removeEvensVer1(ll);
+    IteratorEx.removeEvensVer1(al);
+    IteratorEx.removeEvensVer1(ll);
 
-    IterEx.removeEvensVer2((al));
-    IterEx.removeEvensVer2((ll));
+    IteratorEx.removeEvensVer2((al));
+    IteratorEx.removeEvensVer2((ll));
     // IterEx.removeEvenVer3((al));
     // IterEx.removeEvenVer3((ll));
 
