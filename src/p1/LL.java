@@ -175,8 +175,24 @@ public class LL<T> implements Iterable<T>{
     return count;
   }
 
-  public void swap(int idx1, int indx2) {
-    
+  public void swap(int idx1, int idx2) {
+    Node<T> n1 = getNode(idx1);
+    Node<T> n2 = getNode(idx2);
+
+    Node<T> n1_prev = n1.prev;
+    Node<T> n1_next = n1.next;
+
+    n1.next = n2.next;
+    n1.prev = n2.prev;
+
+    n1.next.prev = n1;
+    n1.prev.next = n1;
+
+    n2.next = n1_next;
+    n2.prev = n1_prev;
+
+    n1_next.prev = n2;
+    n1_prev.next = n2;
   }
 
 }
@@ -197,5 +213,8 @@ class TestLL {
     System.out.println("");
 
     System.out.println("itemCount: " + ll.itemCount(0));
+
+    ll.swap(0, 9);
+    System.out.println("swapped: " + ll);
   }
 }
