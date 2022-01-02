@@ -2,6 +2,7 @@ package p1;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class LL<T> implements Iterable<T>{
 
@@ -229,6 +230,20 @@ public class LL<T> implements Iterable<T>{
     }
     return list;
   }
+
+  public LL<T> reverse() {
+    LL<T> mll = new LL<>();
+    return mll;
+  }
+
+  public void erase(int idx, int count) {
+  }
+
+  public void insertList(LL<T> list, int idx) {
+  }
+
+  public void shift(int offset) {
+  }
 }
 
 class TestLL {
@@ -259,8 +274,8 @@ class TestLL {
     // select
     System.out.println("select: " + ll.select(0, 1, 3, 5, 9));
 
-
     // reverse
+
 
   }
 }
