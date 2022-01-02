@@ -1,5 +1,6 @@
 package p1;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class LL<T> implements Iterable<T>{
@@ -195,6 +196,29 @@ public class LL<T> implements Iterable<T>{
     n1_prev.next = n2;
   }
 
+  public ArrayList<T> sublist(int idx1, int idx2) {
+    ArrayList<T> al = new ArrayList<>();
+
+    // make sure that these two indices exist, otherwise will throw error in getNode
+    Node<T> n1 = getNode(idx1);
+    Node<T> n2 = getNode(idx2);
+
+    if (idx1 <= idx2) {
+      for (int i = 0; i < (idx2-idx1+1); i++) {
+        al.add(n1.data);
+        n1 = n1.next;
+      }
+    } else {
+      for (int i = 0; i < (idx1-idx2+1); i++) {
+        al.add(n2.data);
+        n2 = n2.next;
+      }
+    }
+    return al;
+  }
+
+
+
 }
 
 class TestLL {
@@ -211,10 +235,17 @@ class TestLL {
       System.out.print(iter.next());
     }
     System.out.println("");
-
+    
+    // itemCount
     System.out.println("itemCount: " + ll.itemCount(0));
 
+    // swap
     ll.swap(0, 9);
     System.out.println("swapped: " + ll);
+
+    // sublist
+    System.out.println("sublist: " + ll.sublist(3, 0));
+
+
   }
 }
