@@ -165,6 +165,20 @@ public class LL<T> implements Iterable<T>{
    * p1 implementation starts here 
    */
 
+  public int itemCount(T val) {
+    int count = 0;
+    for (T n: this) {
+      if (n == val) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  public void swap(int idx1, int indx2) {
+    
+  }
+
 }
 
 class TestLL {
@@ -178,8 +192,10 @@ class TestLL {
 
     Iterator<Integer> iter = ll.iterator();
     while (iter.hasNext()) {
-      System.out.println(iter.next());
+      System.out.print(iter.next());
     }
+    System.out.println("");
 
+    System.out.println("itemCount: " + ll.itemCount(0));
   }
 }
