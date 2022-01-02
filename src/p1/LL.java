@@ -94,9 +94,9 @@ public class LL<T> implements Iterable<T>{
 
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("[");
+    sb.append("[ ");
     for (T n: this) {
-      sb.append(n + ", ");
+      sb.append(n + " ");
     }
     sb.append("]");
     return new String(sb);
