@@ -60,8 +60,8 @@ public class LL<T> implements Iterable<T>{
   public void add(int idx, T x) {
     Node<T> p = getNode(idx);
     Node<T> newNode = new Node<>(x, p.prev, p);
+    newNode.prev.next = newNode;
     p.prev = newNode;
-
     this.size++;
     this.modCount++;
   }
@@ -80,22 +80,31 @@ public class LL<T> implements Iterable<T>{
 
   public T remove(int idx) {
     Node<T> p = getNode(idx);
+    return remove(p);
+  }
+
+  private T remove(Node<T> p) {
     p.prev.next = p.next;
     p.next.prev = p.prev;
 
-    this.modCount++;
     this.size--;
-
+    this.modCount++;
     return p.data;
   }
 
   public String toString() {
-    return null;
+    StringBuilder sb = new StringBuilder();
+    sb.append("[");
+    for (T n: this) {
+      sb.append(n + ", ");
+    }
+    sb.append("]");
+    return new String(sb);
   }
 
   private Node<T> getNode(int idx) {
     Node<T> target;
-    if (idx < 0 || idx >= this.size) {  
+    if (idx < 0 || idx > this.size) {  
       throw new IndexOutOfBoundsException("Index: " + idx + "; size: " + this.size);
     }
     if (idx < this.size/2) {
@@ -104,8 +113,9 @@ public class LL<T> implements Iterable<T>{
         target = target.next;
       }
     } else {
-      target = this.endMarker.prev;
-      for (int i = this.size-1; i > idx; i--) {
+      //target = this.endMarker.prev; // IMPORTANT
+      target = this.endMarker;
+      for (int i = this.size; i > idx; i--) {
         target = target.prev;
       }
     }
@@ -116,25 +126,60 @@ public class LL<T> implements Iterable<T>{
 
     private Node<T> current = beginMarker.next; 
     private int expectedModCount = LL.this.modCount;
-    private int size;
+    private boolean okToRemove = false;
 
     @Override
     public boolean hasNext() {
-      return false;
+      return current != LL.this.endMarker;
     }
 
     @Override
     public T next() {
-      return null;
+      if (!hasNext()) {
+        throw new java.util.NoSuchElementException();
+      }
+      if (LL.this.modCount != this.expectedModCount) {
+        throw new java.util.ConcurrentModificationException();
+      }
+      T oldVal = current.data; 
+      current = current.next;
+      okToRemove = true;
+      return oldVal;
     }
 
     public void remove() {
+      if (LL.this.modCount != this.expectedModCount) {
+        throw new java.util.ConcurrentModificationException();
+      }
+      if (!okToRemove) {
+        throw new IllegalStateException();
+      }
+      // remove current.prev
+      LL.this.remove(current.prev);
+      this.expectedModCount++;
+      okToRemove = false;
     }
-    
   }
+
+  /**
+   * p1 implementation starts here 
+   */
+
 }
 
 class TestLL {
   public static void main(String[] args) {
+    LL<Integer> ll = new LL<>();
+
+    for (int i = 0; i < 10; i++) {
+      ll.add(i);
+    }
+    System.out.println(ll);
+
+    Iterator<Integer> iter = ll.iterator();
+    while (iter.hasNext()) {
+      System.out.println(iter.next());
+    }
+
   }
 }
