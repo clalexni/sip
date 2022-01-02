@@ -53,7 +53,12 @@ public class LL<T> implements Iterable<T>{
   }
 
   public boolean add(T x) {
-    add(this.size, x);
+    //add(this.size, x);
+    Node<T> newNode = new Node<>(x,this.endMarker.prev, this.endMarker);
+    this.endMarker.prev.next = newNode;
+    this.endMarker.prev = newNode;
+    this.size++;
+    this.modCount++;
     return true;
   }
 
@@ -105,7 +110,7 @@ public class LL<T> implements Iterable<T>{
 
   private Node<T> getNode(int idx) {
     Node<T> target;
-    if (idx < 0 || idx > this.size) {  
+    if (idx < 0 || idx > this.size-1) {  
       throw new IndexOutOfBoundsException("Index: " + idx + "; size: " + this.size);
     }
     if (idx < this.size/2) {
@@ -217,8 +222,13 @@ public class LL<T> implements Iterable<T>{
     return al;
   }
 
-
-
+  public ArrayList<T> select(int ...idx) {
+    ArrayList<T> list = new ArrayList<>();
+    for (int i: idx) {
+      list.add(getNode(i).data);
+    }
+    return list;
+  }
 }
 
 class TestLL {
@@ -246,6 +256,11 @@ class TestLL {
     // sublist
     System.out.println("sublist: " + ll.sublist(3, 0));
 
+    // select
+    System.out.println("select: " + ll.select(0, 1, 3, 5, 9));
+
+
+    // reverse
 
   }
 }
