@@ -206,6 +206,7 @@ public class LL<T> implements Iterable<T>{
     ArrayList<T> al = new ArrayList<>();
 
     // make sure that these two indices exist, otherwise will throw error in getNode
+    // TODO: faster way?
     Node<T> n1 = getNode(idx1);
     Node<T> n2 = getNode(idx2);
 
@@ -243,6 +244,7 @@ public class LL<T> implements Iterable<T>{
 
   public void erase(int idx, int count) {
     // check if both exist
+    // TODO: faster way?
     Node<T> start = getNode(idx);
     Node<T> end = getNode(idx+count-1);
 
@@ -252,6 +254,14 @@ public class LL<T> implements Iterable<T>{
   }
 
   public void insertList(LL<T> list, int idx) {
+    if (idx < 0 || idx >= this.size) {
+      throw new IndexOutOfBoundsException("Index: " + idx + "; Size: " + this.size);
+    }
+
+    for (T x: list) {
+      this.add(idx, x);
+      idx++;
+    }
   }
 
   public void shift(int offset) {
@@ -293,5 +303,14 @@ class TestLL {
     System.out.println("before erase: " + ll);
     ll.erase(0, 3);
     System.out.println("after erase: " + ll);
+
+    // insertList
+    LL<Integer> ll2 = new LL<>();
+    for (int i = 0; i < 5; i++) {
+      ll2.add(i);
+    }
+    ll.insertList(ll2, 1);
+    System.out.println(ll);
+
   }
 }
