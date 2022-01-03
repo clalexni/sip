@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.xml.transform.Source;
+
 public class LL<T> implements Iterable<T>{
 
   private int size;
@@ -265,6 +267,21 @@ public class LL<T> implements Iterable<T>{
   }
 
   public void shift(int offset) {
+    // move the first offset items to the end
+    offset %= this.size;
+    if (offset < 0) {
+      offset = this.size + offset;
+    }
+    Node<T> first = this.beginMarker.next;
+    Node<T> last = getNode(offset-1);
+    this.beginMarker.next = last.next;
+    last.next.prev = this.beginMarker;
+    
+    first.prev = this.endMarker.prev;
+    this.endMarker.prev.next = first;
+    this.endMarker.prev = first;
+
+    last.next = this.endMarker;
   }
 }
 
@@ -312,5 +329,8 @@ class TestLL {
     ll.insertList(ll2, 1);
     System.out.println(ll);
 
+    // shift
+    ll.shift(-11);
+    System.out.println(ll);
   }
 }
