@@ -242,6 +242,13 @@ public class LL<T> implements Iterable<T>{
   }
 
   public void erase(int idx, int count) {
+    // check if both exist
+    Node<T> start = getNode(idx);
+    Node<T> end = getNode(idx+count-1);
+
+    for(int i = 0; i < count; i++) {
+      this.remove(idx);
+    }
   }
 
   public void insertList(LL<T> list, int idx) {
@@ -282,5 +289,9 @@ class TestLL {
     // reverse
     System.out.println(ll.reverse());
 
+    // erase
+    System.out.println("before erase: " + ll);
+    ll.erase(0, 3);
+    System.out.println("after erase: " + ll);
   }
 }
