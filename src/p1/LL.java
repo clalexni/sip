@@ -244,10 +244,10 @@ public class LL<T> implements Iterable<T>{
 
   public void erase(int idx, int count) {
     // check if both exist
-    // TODO: faster way?
-    Node<T> start = getNode(idx);
-    Node<T> end = getNode(idx+count-1);
-
+    int idx2 = idx+count-1;
+    if (idx  < 0 || idx >= this.size || idx2 < 0 || idx2 >= this.size()) {
+      throw new IndexOutOfBoundsException("Index: " + idx + "; Count: " + count + "; Size: " + this.size);
+    }
     for(int i = 0; i < count; i++) {
       this.remove(idx);
     }
