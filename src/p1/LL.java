@@ -233,6 +233,11 @@ public class LL<T> implements Iterable<T>{
 
   public LL<T> reverse() {
     LL<T> mll = new LL<>();
+    Node<T> node = this.endMarker.prev;
+    while (node != this.beginMarker) {
+      mll.add(node.data);
+      node = node.prev;
+    }
     return mll;
   }
 
@@ -275,7 +280,7 @@ class TestLL {
     System.out.println("select: " + ll.select(0, 1, 3, 5, 9));
 
     // reverse
-
+    System.out.println(ll.reverse());
 
   }
 }
