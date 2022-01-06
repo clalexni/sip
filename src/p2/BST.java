@@ -10,6 +10,7 @@ isEmpty
 printTree
 */
 
+import com.apple.laf.resources.aqua;
 
 public class BST<T extends Comparable <? super T>>{
 
@@ -151,6 +152,38 @@ public class BST<T extends Comparable <? super T>>{
     }
   }
 
+  /* P2 starts here*/
+  public int size() {
+    return size(this.root);
+  }
+
+  private int size(Node<T> node) {
+    if (node == null) {
+      return 0; 
+    } else {
+      return 1 + size(node.left) + size(node.right);
+    }
+  }
+
+  public int numLeaves() {
+    return 0;
+  }
+
+  public int numLeftChildren()  {
+    return 0;
+  }
+
+  public boolean isFull() {
+    return false;
+  }
+
+  public int nodeDepth() {
+    return 0;
+  }
+
+  public void printByLevels() {
+  }
+
   public static void main(String[] args) {
     BST<Integer> bst = new BST<>();
 
@@ -167,5 +200,6 @@ public class BST<T extends Comparable <? super T>>{
 
     bst.remove(1);
     bst.printTree();
+    System.out.println(bst.size());
   }
 }
