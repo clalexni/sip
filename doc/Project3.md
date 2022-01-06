@@ -13,7 +13,7 @@ table = new Entry[size]; // create as non-generic
 appropriate.
 
 ## API
-### public boolean insert(K key, V value)
+### ```public boolean insert(K key, V value)```
 - inserts entry, rehashes if half full,
 can re-use deleted entries, throws
 exception if key is null, returns
