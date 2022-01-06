@@ -91,7 +91,21 @@ public class BST<T extends Comparable <? super T>>{
   }
 
   public boolean contains(T x) {
-    return false;
+    return contains(x, this.root);
+  }
+
+  private boolean contains(T x, Node<T> node) {
+    if (node == null) {
+      return false;
+    }
+    int compareResult = x.compareTo(node.data);
+    if (compareResult < 0) { // x < node.data
+      return contains(x, node.left);
+    } else if (compareResult > 0) {
+      return contains(x, node.right);
+    } else {
+      return true;
+    }
   }
 
   public void makeEmpty() {
@@ -121,9 +135,16 @@ public class BST<T extends Comparable <? super T>>{
 
   public static void main(String[] args) {
     BST<Integer> bst = new BST<>();
+
     bst.insert(2);
     bst.insert(1);
     bst.insert(3);
     bst.printTree();
+
+    System.out.println(bst.findMin());
+    System.out.println(bst.findMax());
+
+    System.out.println(bst.contains(-1));
+    System.out.println(bst.contains(1));
   }
 }
