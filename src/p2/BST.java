@@ -61,6 +61,17 @@ public class BST<T extends Comparable <? super T>>{
     return null;
   }
 
+  private Node<T> findMin(Node<T> node) {
+    if (node != null) {
+      while (node.left != null) {
+        node = node.left;
+      }
+      return node;
+    } else {
+      return null;
+    }
+  }
+
   public T findMax() {
     return null;
   }
