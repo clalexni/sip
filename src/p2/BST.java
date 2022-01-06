@@ -10,7 +10,6 @@ isEmpty
 printTree
 */
 
-import javax.xml.transform.Source;
 
 public class BST<T extends Comparable <? super T>>{
 
@@ -25,11 +24,11 @@ public class BST<T extends Comparable <? super T>>{
       this.data = data;
     }
 
-    public Node(T data, Node<T> left, Node<T> right) {
-      this.data = data;
-      this.left = left;
-      this.right = right;
-    }
+    // public Node(T data, Node<T> left, Node<T> right) {
+    //   this.data = data;
+    //   this.left = left;
+    //   this.right = right;
+    // }
   }
 
   public BST() {
@@ -55,6 +54,25 @@ public class BST<T extends Comparable <? super T>>{
   }
 
   public void remove(T x) {
+    this.root = remove(x, this.root);
+  }
+
+  private Node<T> remove(T x, Node<T> node) {
+    if (node == null) {
+      return null;
+    }
+    int compareResult = x.compareTo(node.data);
+    if (compareResult < 0) { // x < node.data
+      node.left = remove(x, node.left);
+    } else if (compareResult > 0) {
+      node.right = remove(x, node.right);
+    } else if (node.left != null && node.right != null) {
+      node.data = findMin(node.right).data;
+      node.right = remove(node.data, node.right);
+    } else { // one or no child
+      node = (node.left == null)? node.right : node.left;
+    }
+    return node;
   }
 
   public T findMin() {
@@ -146,5 +164,8 @@ public class BST<T extends Comparable <? super T>>{
 
     System.out.println(bst.contains(-1));
     System.out.println(bst.contains(1));
+
+    bst.remove(1);
+    bst.printTree();
   }
 }
