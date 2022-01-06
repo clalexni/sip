@@ -155,7 +155,7 @@ public class BST<T extends Comparable<? super T>> {
       printTree(node.right);
     }
   }
-
+  
   // not used
   private int height(Node<T> t) {
     if (t == null)
