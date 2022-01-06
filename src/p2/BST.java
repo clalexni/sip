@@ -209,8 +209,22 @@ public class BST<T extends Comparable <? super T>>{
     }
   }
 
-  public int nodeDepth() {
-    return 0;
+  public int nodeDepth(T x) {
+    return nodeDepth(x, this.root);
+  }
+
+  private int nodeDepth(T x, Node<T> node) {
+    if (node == null) {
+      return -1;
+    }
+    int compareResult = x.compareTo(node.data);
+    if (compareResult > 0) { // x > node.data
+      return 1 + nodeDepth(x, node.right);
+    } else if (compareResult < 0) {
+      return 1 + nodeDepth(x, node.left);
+    } else {
+      return 0;
+    }
   }
 
   public void printByLevels() {
@@ -242,6 +256,10 @@ public class BST<T extends Comparable <? super T>>{
     System.out.println("is full: " + bst.isFull());
     bst.insert(0);
     System.out.println("is full: " + bst.isFull());
-
+    System.out.println("depth: " + bst.nodeDepth(4));
+    System.out.println("depth: " + bst.nodeDepth(0));
+    System.out.println("depth: " + bst.nodeDepth(3));
+    System.out.println("depth: " + bst.nodeDepth(1));
+    System.out.println("depth: " + bst.nodeDepth(2));
   }
 }
