@@ -10,7 +10,6 @@ isEmpty
 printTree
 */
 
-import com.apple.laf.resources.aqua;
 
 public class BST<T extends Comparable <? super T>>{
 
@@ -166,11 +165,30 @@ public class BST<T extends Comparable <? super T>>{
   }
 
   public int numLeaves() {
-    return 0;
+    return numLeaves(this.root);
   }
 
+  private int numLeaves(Node<T> node) {
+    if (node == null) {
+      return 0;
+    }
+    if (node.left == null && node.right == null) {
+      return 1;
+    } else {
+      return numLeaves(node.left) + numLeaves(node.right);
+    }
+  }
   public int numLeftChildren()  {
-    return 0;
+    return numLeftChildren(this.root);
+  }
+
+  private int numLeftChildren(Node<T> node) {
+    if (node == null) {
+      return 0;
+    } else {
+      int count = (node.left == null)? 0: 1;
+      return count + numLeftChildren(node.left) + numLeftChildren(node.right);
+    }
   }
 
   public boolean isFull() {
@@ -198,8 +216,14 @@ public class BST<T extends Comparable <? super T>>{
     System.out.println(bst.contains(-1));
     System.out.println(bst.contains(1));
 
-    bst.remove(1);
-    bst.printTree();
-    System.out.println(bst.size());
+    bst.remove(2);
+    // bst.printTree();
+    bst.insert(4);
+    bst.insert(0);
+    System.out.println("tree size: " + bst.size());
+    
+    System.out.println("leaves count: " + bst.numLeaves());
+    
+    System.out.println("left children count: " + bst.numLeftChildren());
   }
 }
