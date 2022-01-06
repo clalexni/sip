@@ -1,15 +1,17 @@
+// CONSTRUCTION: with no initializer
+//
+// ******************PUBLIC OPERATIONS*********************
+// void insert( x )       --> Insert x
+// void remove( x )       --> Remove x
+// boolean contains( x )  --> Return true if x is present
+// Comparable findMin( )  --> Return smallest item
+// Comparable findMax( )  --> Return largest item
+// boolean isEmpty( )     --> Return true if empty; else false
+// void makeEmpty( )      --> Remove all items
+// void printTree( )      --> Print tree in sorted order
+// ******************ERRORS********************************
+// Throws UnderflowException as appropriate
 package p2;
-/*
-insert
-remove
-findMin
-findMax
-contains
-makeEmpty
-isEmpty
-printTree
-*/
-
 
 public class BST<T extends Comparable <? super T>>{
 
@@ -192,7 +194,19 @@ public class BST<T extends Comparable <? super T>>{
   }
 
   public boolean isFull() {
-    return false;
+    return isFull(this.root);
+  }
+
+  private boolean isFull(Node<T> node) {
+    if (node == null) {
+      return true;
+    } else if (node.left == null && node.right == null) {
+      return true;
+    } else if (node.left == null || node.right == null) {
+      return false;
+    } else {
+      return isFull(node.left) && isFull(node.right);
+    }
   }
 
   public int nodeDepth() {
@@ -208,10 +222,11 @@ public class BST<T extends Comparable <? super T>>{
     bst.insert(2);
     bst.insert(1);
     bst.insert(3);
+    System.out.println("inserted 2-1-3 print tree: ");
     bst.printTree();
 
-    System.out.println(bst.findMin());
-    System.out.println(bst.findMax());
+    System.out.println("find min: " + bst.findMin());
+    System.out.println("find max: " + bst.findMax());
 
     System.out.println(bst.contains(-1));
     System.out.println(bst.contains(1));
@@ -219,11 +234,14 @@ public class BST<T extends Comparable <? super T>>{
     bst.remove(2);
     // bst.printTree();
     bst.insert(4);
-    bst.insert(0);
+    //bst.insert(0);
+
     System.out.println("tree size: " + bst.size());
-    
     System.out.println("leaves count: " + bst.numLeaves());
-    
     System.out.println("left children count: " + bst.numLeftChildren());
+    System.out.println("is full: " + bst.isFull());
+    bst.insert(0);
+    System.out.println("is full: " + bst.isFull());
+
   }
 }
