@@ -13,11 +13,14 @@
 // Throws UnderflowException as appropriate
 package p2;
 
-public class BST<T extends Comparable <? super T>>{
+import java.util.ArrayDeque;
+import java.util.Queue;
 
-  private Node<T> root;  
+public class BST<T extends Comparable<? super T>> {
 
-  private static class Node <T> {
+  private Node<T> root;
+
+  private static class Node<T> {
     public T data;
     public Node<T> left;
     public Node<T> right;
@@ -27,9 +30,9 @@ public class BST<T extends Comparable <? super T>>{
     }
 
     // public Node(T data, Node<T> left, Node<T> right) {
-    //   this.data = data;
-    //   this.left = left;
-    //   this.right = right;
+    // this.data = data;
+    // this.left = left;
+    // this.right = right;
     // }
   }
 
@@ -40,9 +43,9 @@ public class BST<T extends Comparable <? super T>>{
   public void insert(T x) {
     root = insert(x, root);
   }
-  
+
   private Node<T> insert(T x, Node<T> node) {
-    if (node == null) { 
+    if (node == null) {
       return new Node<>(x);
     }
     int compareResult = x.compareTo(node.data);
@@ -50,7 +53,7 @@ public class BST<T extends Comparable <? super T>>{
       node.right = insert(x, node.right);
     } else if (compareResult < 0) { // x < node.data
       node.left = insert(x, node.left);
-    } else {  
+    } else {
     }
     return node;
   }
@@ -72,7 +75,7 @@ public class BST<T extends Comparable <? super T>>{
       node.data = findMin(node.right).data;
       node.right = remove(node.data, node.right);
     } else { // one or no child
-      node = (node.left == null)? node.right : node.left;
+      node = (node.left == null) ? node.right : node.left;
     }
     return node;
   }
@@ -153,14 +156,22 @@ public class BST<T extends Comparable <? super T>>{
     }
   }
 
-  /* P2 starts here*/
+  // not used
+  private int height(Node<T> t) {
+    if (t == null)
+      return -1;
+    else
+      return 1 + Math.max(height(t.left), height(t.right));
+  }
+
+  /* P2 starts here */
   public int size() {
     return size(this.root);
   }
 
   private int size(Node<T> node) {
     if (node == null) {
-      return 0; 
+      return 0;
     } else {
       return 1 + size(node.left) + size(node.right);
     }
@@ -180,7 +191,8 @@ public class BST<T extends Comparable <? super T>>{
       return numLeaves(node.left) + numLeaves(node.right);
     }
   }
-  public int numLeftChildren()  {
+
+  public int numLeftChildren() {
     return numLeftChildren(this.root);
   }
 
@@ -188,7 +200,7 @@ public class BST<T extends Comparable <? super T>>{
     if (node == null) {
       return 0;
     } else {
-      int count = (node.left == null)? 0: 1;
+      int count = (node.left == null) ? 0 : 1;
       return count + numLeftChildren(node.left) + numLeftChildren(node.right);
     }
   }
@@ -228,6 +240,22 @@ public class BST<T extends Comparable <? super T>>{
   }
 
   public void printByLevels() {
+    if (isEmpty())  {
+      return;
+    }
+    Queue<Node<T>> queue = new ArrayDeque<>();
+    queue.offer(this.root);
+    while (queue.peek() != null) {
+      Node<T> dequeued = queue.poll();
+      if (dequeued.left != null) {
+        queue.offer(dequeued.left);
+      }
+      if (dequeued.right != null) {
+        queue.offer(dequeued.right);
+      }
+      System.out.println(dequeued.data);
+    }
+
   }
 
   public static void main(String[] args) {
@@ -248,7 +276,7 @@ public class BST<T extends Comparable <? super T>>{
     bst.remove(2);
     // bst.printTree();
     bst.insert(4);
-    //bst.insert(0);
+    // bst.insert(0);
 
     System.out.println("tree size: " + bst.size());
     System.out.println("leaves count: " + bst.numLeaves());
@@ -261,5 +289,8 @@ public class BST<T extends Comparable <? super T>>{
     System.out.println("depth: " + bst.nodeDepth(3));
     System.out.println("depth: " + bst.nodeDepth(1));
     System.out.println("depth: " + bst.nodeDepth(2));
+    System.out.println("print by levels: ");
+    bst.insert(-1);
+    bst.printByLevels();
   }
 }
