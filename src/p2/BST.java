@@ -58,7 +58,10 @@ public class BST<T extends Comparable <? super T>>{
   }
 
   public T findMin() {
-    return null;
+    if (isEmpty()) {
+      throw new java.util.NoSuchElementException();
+    }
+    return findMin(this.root).data;
   }
 
   private Node<T> findMin(Node<T> node) {
@@ -66,14 +69,25 @@ public class BST<T extends Comparable <? super T>>{
       while (node.left != null) {
         node = node.left;
       }
-      return node;
-    } else {
-      return null;
     }
+    return node;
   }
 
   public T findMax() {
-    return null;
+    if (isEmpty()) {
+      throw new java.util.NoSuchElementException();
+    }
+    return findMax(this.root).data;
+  }
+
+  private Node<T> findMax(Node<T> node) {
+    if (node == null) {
+      return null;
+    } else if (node.right == null) {
+      return node;
+    } else {
+      return findMax(node.right);
+    }
   }
 
   public boolean contains(T x) {
