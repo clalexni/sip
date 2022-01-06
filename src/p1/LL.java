@@ -2,9 +2,7 @@ package p1;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
-import javax.xml.transform.Source;
 
 public class LL<T> implements Iterable<T>{
 
