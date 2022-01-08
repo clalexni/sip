@@ -1,3 +1,9 @@
+## References
+### Java Collection API
+- [How to learn Java Collection](https://www.geeksforgeeks.org/how-to-learn-java-collections-a-complete-guide/)
+- TreeSet vs HashSet vs LinkedHashSet
+  - https://www.geeksforgeeks.org/difference-and-similarities-between-hashset-linkedhashset-and-treeset-in-java/
+
 ## Getting Started
 
 Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
