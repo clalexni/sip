@@ -15,6 +15,9 @@
 
 package ex;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 public class AvlTree<T extends Comparable<? super T>> {
 
   private Node<T> root;
@@ -42,17 +45,21 @@ public class AvlTree<T extends Comparable<? super T>> {
     if (height(node.left) - height(node.right) > ALLOWED_IMBALANCE) { 
       if (height(node.left.left) > height(node.left.right)) {
         // LL single rotation
+        System.out.println("LLsingle");
         node = LLSingleRotation(node);
       } else if (height(node.left.right) > height(node.left.left)) {
         // LR double rotation
+        node = LRDoubleRotation(node);
       } else {
         System.out.println("how did you end up here?");
       }
     } else if (height(node.right) - height(node.left) > ALLOWED_IMBALANCE) {
       if (height(node.right.right) > height(node.right.left)) {
         // RR single rotation
+        node = RRSingleRotation(node);
       } else if (height(node.right.right) < height(node.right.left)) {
         // RL double rotation
+        node = RLDoubleRotation(node);
       } else {
         System.out.println("how did you end up here 2?");
       }
@@ -69,6 +76,18 @@ public class AvlTree<T extends Comparable<? super T>> {
     k2.height = Math.max(height(k2.left), height(k2.right)) + 1;
     k1.height = Math.max(height(k1.left), height(k1.right)) + 1;
     return k1;
+  }
+
+  private Node<T> RRSingleRotation(Node<T> k2) {
+    return null;
+  }
+
+  private Node<T> LRDoubleRotation(Node<T> k3) {
+    return null;
+  }
+
+  private Node<T> RLDoubleRotation(Node<T> k3) {
+    return null;
   }
 
   private int height(Node<T> node) {
@@ -94,8 +113,27 @@ public class AvlTree<T extends Comparable<? super T>> {
     return balance(node);
   }
 
-
+  // print inorder
+  public void printTree() {
+    Queue<Node<T>> queue = new ArrayDeque<>();
+    queue.offer(this.root);
+    while (queue.peek() != null) {
+      Node<T> node = queue.poll();
+      System.out.println("Value: " + node.data + "; height: " + node.height);
+      if (node.left != null) {
+        queue.offer(node.left);
+      }
+      if (node.right != null) {
+        queue.offer(node.right);
+      }
+    }
+  }
 
   public static void main(String[] args) {
+    AvlTree<Integer> avl = new AvlTree<>(); 
+    avl.insert(3);
+    avl.insert(2);
+    avl.insert(1);
+    avl.printTree();
   }
 }
