@@ -11,7 +11,8 @@
 // void printTree( )      --> Print tree in sorted order
 // ******************ERRORS********************************
 // Throws UnderflowException as appropriate
-package p2;
+
+package project2;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -19,6 +20,7 @@ import java.util.Queue;
 public class BST<T extends Comparable<? super T>> {
 
   private Node<T> root;
+  private static final int ALLOWED_IMBALANCE = 1;
 
   private static class Node<T> {
     public T data;
