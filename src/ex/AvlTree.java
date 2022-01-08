@@ -31,6 +31,34 @@ public class AvlTree<T extends Comparable<? super T>> {
   }
 
   public AvlTree() {
+    this.root = null;
+  }
+
+  private Node<T> balance(Node<T> node) {
+    return null;
+  }
+
+  private int height(Node<T> node) {
+    return (node == null)? -1: node.height;
+  }
+
+  public void insert(T x) {
+    this.root = insert(x, this.root);
+  }
+
+  private Node<T> insert(T x, Node<T> node) {
+    if (node == null) {
+      return new Node<T>(x);
+    }
+    int compareResult = x.compareTo(node.data);
+    if (compareResult > 0) {
+      node.right = insert(x, node.right);
+    } else if (compareResult < 0) {
+      node.left = insert(x, node.left);
+    } else {
+      ;
+    }
+    return node;
   }
 
 
