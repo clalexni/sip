@@ -56,6 +56,7 @@ public class AvlTree<T extends Comparable<? super T>> {
     } else if (height(node.right) - height(node.left) > ALLOWED_IMBALANCE) {
       if (height(node.right.right) > height(node.right.left)) {
         // RR single rotation
+        System.out.println("RRsingle");
         node = RRSingleRotation(node);
       } else if (height(node.right.right) < height(node.right.left)) {
         // RL double rotation
@@ -78,8 +79,13 @@ public class AvlTree<T extends Comparable<? super T>> {
     return k1;
   }
 
-  private Node<T> RRSingleRotation(Node<T> k2) {
-    return null;
+  private Node<T> RRSingleRotation(Node<T> k1) {
+    Node<T> k2 = k1.right;
+    k1.right = k2.left;
+    k2.left = k1;
+    k1.height = Math.max(height(k1.left), height(k1.right)) + 1;
+    k2.height = Math.max(height(k2.left), height(k2.right)) + 1;
+    return k2;
   }
 
   private Node<T> LRDoubleRotation(Node<T> k3) {
@@ -113,8 +119,8 @@ public class AvlTree<T extends Comparable<? super T>> {
     return balance(node);
   }
 
-  // print inorder
-  public void printTree() {
+  // print by levels
+  public void printTreeByLevels() {
     Queue<Node<T>> queue = new ArrayDeque<>();
     queue.offer(this.root);
     while (queue.peek() != null) {
@@ -131,9 +137,15 @@ public class AvlTree<T extends Comparable<? super T>> {
 
   public static void main(String[] args) {
     AvlTree<Integer> avl = new AvlTree<>(); 
+    System.out.println("insert 3-2-1: ");
     avl.insert(3);
     avl.insert(2);
     avl.insert(1);
-    avl.printTree();
+    avl.printTreeByLevels();
+
+    System.out.println("insert 4-5");
+    avl.insert(4);
+    avl.insert(5);
+    avl.printTreeByLevels();
   }
 }
