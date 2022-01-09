@@ -168,6 +168,31 @@ public class AvlTree<T extends Comparable<? super T>> {
     }
   }
 
+
+  public T findMax() {
+    return null;
+  }
+
+  private Node<T> findMax(Node<T> node) {
+    return null;
+  }
+
+  public boolean contains(T x) {
+    return false;
+  }
+
+  private boolean contains(T x, Node<T> node) {
+    return false;
+  }
+
+  public boolean isBalanced() {
+    return false;
+  }
+
+  private int checkBalance(Node<T> node) {
+    return 0;
+  }
+
   // print by inorder
   public void printTree() {
     if (isEmpty()) {
