@@ -12,7 +12,7 @@
 // void printTree( )      --> Print tree in sorted order
 // ******************ERRORS********************************
 // Throws UnderflowException as appropriate
-
+// TODO: checkBalance
 package ex;
 
 import java.util.ArrayDeque;
@@ -35,6 +35,14 @@ public class AvlTree<T extends Comparable<? super T>> {
   }
 
   public AvlTree() {
+    this.root = null;
+  }
+
+  public boolean isEmpty() {
+    return this.root == null;
+  }
+
+  public void makeEmpty() {
     this.root = null;
   }
 
@@ -123,6 +131,61 @@ public class AvlTree<T extends Comparable<? super T>> {
     return balance(node);
   }
 
+  public void remove(T x) {
+    this.root = remove(x, this.root);
+  }
+
+  private Node<T> remove(T x, Node<T> node)  {
+    if (node == null) {
+      return null; 
+    }
+    int compareResult = x.compareTo(node.data);
+    if (compareResult > 0) {
+      node.right = remove(x, node.right);
+    } else if (compareResult < 0) {
+      node.left = remove(x, node.left);
+    } else if (node.left != null && node.right != null) {
+      node.data = findMin(node.right).data;
+      node.right = remove(node.data, node.right);
+    } else { // remmove will hit this case eventually
+      node =  (node.left == null)? node.right: node.left;
+    }
+    return balance(node);
+  }
+
+  public T findMin() {
+    if (isEmpty()) {
+      throw new java.util.NoSuchElementException();
+    }
+    return findMin(this.root).data;
+  }
+
+  private Node<T> findMin(Node<T> node) {
+    if (node.left == null) {
+      return node;
+    } else {
+      return findMin(node.left);
+    }
+  }
+
+  // print by inorder
+  public void printTree() {
+    if (isEmpty()) {
+      System.out.println("Empty Tree");
+    } else {
+      printTree(this.root);
+    }
+  }
+
+  private void printTree(Node<T> node) {
+    if (node != null) {
+      printTree(node.left);
+      System.out.println(node.data);
+      printTree(node.right);
+    }
+
+  }
+
   // print by levels
   public void printTreeByLevels() {
     Queue<Node<T>> queue = new ArrayDeque<>();
@@ -155,11 +218,20 @@ public class AvlTree<T extends Comparable<? super T>> {
     System.out.println("insert 3.5");
     avl.insert(3.5);
     avl.printTreeByLevels();
+
+    // findmin
+    System.out.println("Min: " + avl.findMin());
     /*
       2
     1 .  4
       3 .  5
         3.5
     */
+
+    // remove
+    avl.remove(4.0);
+    avl.printTreeByLevels();
+
+    avl.printTree();
   }
 }
