@@ -45,10 +45,11 @@ public class AvlTree<T extends Comparable<? super T>> {
     if (height(node.left) - height(node.right) > ALLOWED_IMBALANCE) { 
       if (height(node.left.left) > height(node.left.right)) {
         // LL single rotation
-        System.out.println("LLsingle");
+        System.out.println("LL single");
         node = LLSingleRotation(node);
       } else if (height(node.left.right) > height(node.left.left)) {
         // LR double rotation
+        System.out.println("LR double");
         node = LRDoubleRotation(node);
       } else {
         System.out.println("how did you end up here?");
@@ -56,10 +57,11 @@ public class AvlTree<T extends Comparable<? super T>> {
     } else if (height(node.right) - height(node.left) > ALLOWED_IMBALANCE) {
       if (height(node.right.right) > height(node.right.left)) {
         // RR single rotation
-        System.out.println("RRsingle");
+        System.out.println("RR single");
         node = RRSingleRotation(node);
       } else if (height(node.right.right) < height(node.right.left)) {
         // RL double rotation
+        System.out.println("RL double");
         node = RLDoubleRotation(node);
       } else {
         System.out.println("how did you end up here 2?");
@@ -89,11 +91,13 @@ public class AvlTree<T extends Comparable<? super T>> {
   }
 
   private Node<T> LRDoubleRotation(Node<T> k3) {
-    return null;
+    k3.left = RRSingleRotation(k3.left);
+    return LLSingleRotation(k3);
   }
 
   private Node<T> RLDoubleRotation(Node<T> k3) {
-    return null;
+    k3.right = LLSingleRotation(k3.right);
+    return RRSingleRotation(k3);
   }
 
   private int height(Node<T> node) {
@@ -136,16 +140,26 @@ public class AvlTree<T extends Comparable<? super T>> {
   }
 
   public static void main(String[] args) {
-    AvlTree<Integer> avl = new AvlTree<>(); 
+    AvlTree<Double> avl = new AvlTree<>(); 
     System.out.println("insert 3-2-1: ");
-    avl.insert(3);
-    avl.insert(2);
-    avl.insert(1);
+    avl.insert(3.0);
+    avl.insert(2.0);
+    avl.insert(1.0);
     avl.printTreeByLevels();
 
     System.out.println("insert 4-5");
-    avl.insert(4);
-    avl.insert(5);
+    avl.insert(4.0);
+    avl.insert(5.0);
     avl.printTreeByLevels();
+
+    System.out.println("insert 3.5");
+    avl.insert(3.5);
+    avl.printTreeByLevels();
+    /*
+      2
+    1 .  4
+      3 .  5
+        3.5
+    */
   }
 }
