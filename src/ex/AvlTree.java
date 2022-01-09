@@ -202,6 +202,7 @@ public class AvlTree<T extends Comparable<? super T>> {
     }
   }
 
+  // TODO: checkBalance
   // public boolean isBalanced() {
   //   return false;
   // }
