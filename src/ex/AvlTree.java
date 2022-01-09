@@ -12,7 +12,6 @@
 // void printTree( )      --> Print tree in sorted order
 // ******************ERRORS********************************
 // Throws UnderflowException as appropriate
-// TODO: checkBalance
 package ex;
 
 import java.util.ArrayDeque;
@@ -168,30 +167,48 @@ public class AvlTree<T extends Comparable<? super T>> {
     }
   }
 
-
   public T findMax() {
-    return null;
+    if (isEmpty()) {
+      throw new java.util.NoSuchElementException();
+    }
+    return findMax(this.root).data;
   }
 
   private Node<T> findMax(Node<T> node) {
-    return null;
+    if (node == null) {
+      return null;
+    }
+    while (node.right != null) {
+      node = node.right;
+    }
+    return node;
   }
 
   public boolean contains(T x) {
-    return false;
+    return contains(x, this.root);
   }
 
   private boolean contains(T x, Node<T> node) {
-    return false;
+    if (node == null) {
+      return false;
+    }
+    int compareResult = x.compareTo(node.data);
+    if (compareResult > 0) {
+      return contains(x, node.right);
+    } else if (compareResult < 0) {
+      return contains(x, node.left);
+    } else {
+      return true;
+    }
   }
 
-  public boolean isBalanced() {
-    return false;
-  }
+  // public boolean isBalanced() {
+  //   return false;
+  // }
 
-  private int checkBalance(Node<T> node) {
-    return 0;
-  }
+  // private int checkBalance(Node<T> node) {
+  //   return 0;
+  // }
 
   // print by inorder
   public void printTree() {
@@ -246,6 +263,7 @@ public class AvlTree<T extends Comparable<? super T>> {
 
     // findmin
     System.out.println("Min: " + avl.findMin());
+    System.out.println("Max: " + avl.findMax());
     /*
       2
     1 .  4
@@ -258,5 +276,10 @@ public class AvlTree<T extends Comparable<? super T>> {
     avl.printTreeByLevels();
 
     avl.printTree();
+
+
+    // contains
+    System.out.println(avl.contains(4.0));
+    System.out.println(avl.contains(5.0));
   }
 }
