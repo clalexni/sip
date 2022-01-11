@@ -3,11 +3,22 @@
 - [How to learn Java Collection](https://www.geeksforgeeks.org/how-to-learn-java-collections-a-complete-guide/)
 - TreeSet vs HashSet vs LinkedHashSet
   - https://www.geeksforgeeks.org/difference-and-similarities-between-hashset-linkedhashset-and-treeset-in-java/
+- Hash (average case O(1))
+  - seperate chaining
+  - open addressing
+    - Linear Probing
+    - Quadratic Probing
+    - Double Hashing
+- Hash (worst case O(1))
+  - perfect hashing
+  - cuckoo hashing
+  - hopscotch hashing
 
 ## Todos
 - Splay Tree
 - B-Tree
 - B+-Tree
+- Red Black Tree
 
 ## Getting Started
 
