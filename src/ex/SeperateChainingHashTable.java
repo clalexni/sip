@@ -5,6 +5,7 @@
 // void makeEmpty( )      --> Remove all items
 package ex;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,6 +31,20 @@ public class SeperateChainingHashTable<T> {
     if (!list.contains(x)) { // use equals in background
       list.add(x);
       return true;
+    }
+    return false;
+  }
+
+  public boolean remove(T x) {
+    List<T> list = arr[myHash(x)];
+    Iterator<T> iter = list.iterator();
+
+    while (iter.hasNext()) {
+      T data = iter.next();
+      if (data.equals(x)) {
+        iter.remove();
+        return true;
+      }
     }
     return false;
   }
@@ -64,8 +79,10 @@ public class SeperateChainingHashTable<T> {
   }
   public static void main(String[] args) {
     SeperateChainingHashTable<Integer> ht = new SeperateChainingHashTable<>();
-    System.out.println(ht.insert(1));
-    System.out.println(ht.insert(1));
+
+    for (int i = 0; i < 10; i++)  {
+      ht.insert(i);
+    }
   }
 }
 
