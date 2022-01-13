@@ -92,6 +92,7 @@ public class QuadraticProbingHashTable <T>{
     }
 
     arr[currentPos] = new HashEntry<>(x, true);
+    size++;
 
     if (occupied > arr.length/2) {
       rehash();
@@ -137,6 +138,7 @@ public class QuadraticProbingHashTable <T>{
   }
 
   public boolean remove(T x) {
+
     return false;
   }
 
