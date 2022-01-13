@@ -30,9 +30,27 @@ public class SeperateChainingHashTable<T> {
     List<T> list = arr[myHash(x)];
     if (!list.contains(x)) { // use equals in background
       list.add(x);
+      if (++size > arr.length) {
+        rehash();
+      }
       return true;
     }
     return false;
+  }
+
+  private void rehash() {
+    List<T>[] oldArr = arr;
+    arr = new LinkedList[nextPrime(size * 2)];
+    for (int i = 0; i < arr.length; i++) {
+      arr[i] = new LinkedList<>();
+    }
+
+    size = 0;
+    for(List<T> l: oldArr) {
+      for (T i: l) {
+        insert(i);
+      }
+    }
   }
 
   public boolean remove(T x) {
@@ -76,6 +94,10 @@ public class SeperateChainingHashTable<T> {
       }
     }
     return true;
+  }
+
+  public boolean contains(T x) {
+    return false;
   }
   public static void main(String[] args) {
     SeperateChainingHashTable<Integer> ht = new SeperateChainingHashTable<>();
