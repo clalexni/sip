@@ -154,14 +154,23 @@ public class QuadraticProbingHashTable <T>{
     return false;
   }
 
+  public boolean contains(T x) {
+    int pos = findPos(x);
+    if (arr[pos] != null && arr[pos].isActive) {
+      return true;
+    }
+    return false;
+  }
+
   public static void main(String[] args) {
     QuadraticProbingHashTable<Integer> ht = new QuadraticProbingHashTable<>();
     System.out.println(ht.insert(1));
     System.out.println(ht.insert(1));
-
+    System.out.println("contains: " + ht.contains(1));
     System.out.println("cap: " + ht.capacity() + "; size: " + ht.size());
     System.out.println(ht.remove(1));
     System.out.println(ht.remove(1));
+    System.out.println("contains: " + ht.contains(1));
     System.out.println("cap: " + ht.capacity() + "; size: " + ht.size());
   }
 }
