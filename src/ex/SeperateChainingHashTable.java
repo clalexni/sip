@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.sound.sampled.SourceDataLine;
+
 public class SeperateChainingHashTable<T> {
   private final static int DEFAULT_TABLE_SIZE = 101;
   private List<T>[] arr;
@@ -61,6 +63,7 @@ public class SeperateChainingHashTable<T> {
       T data = iter.next();
       if (data.equals(x)) {
         iter.remove();
+        size--;
         return true;
       }
     }
@@ -97,14 +100,17 @@ public class SeperateChainingHashTable<T> {
   }
 
   public boolean contains(T x) {
-    return false;
+    return arr[myHash(x)].contains(x);
   }
+
   public static void main(String[] args) {
     SeperateChainingHashTable<Integer> ht = new SeperateChainingHashTable<>();
 
     for (int i = 0; i < 10; i++)  {
       ht.insert(i);
     }
+    System.out.println(ht.contains(1));
+    System.out.println(ht.contains(10));
   }
 }
 
