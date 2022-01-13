@@ -4,7 +4,7 @@
 // bool contains( x )     --> Return true if x is present
 // void makeEmpty( )      --> Remove all items
 // int size()
-// int capacity
+// int capacity()
 package ex;
 
 import java.security.Policy;
@@ -45,6 +45,14 @@ public class QuadraticProbingHashTable <T>{
     makeEmpty();
   }
 
+  public int capacity() {
+    return arr.length;
+  }
+
+  public int size() {
+    return size;
+  }
+
   private void allocateArray(int size) {
     // arr= new HashEntry<T>[100];
     arr = new HashEntry[ nextPrime(size) ];
@@ -83,7 +91,6 @@ public class QuadraticProbingHashTable <T>{
     if (arr[currentPos] != null && arr[currentPos].isActive) {
       return false;
     }
-    // System.out.println("what? " + arr[currentPos].data);
 
     // if x is stored but not active => occupied had increased before
     // if current position is null => increase occupied
@@ -138,7 +145,12 @@ public class QuadraticProbingHashTable <T>{
   }
 
   public boolean remove(T x) {
-
+    int pos = findPos(x);
+    if (arr[pos] != null && arr[pos].isActive) {
+      arr[pos].isActive = false;
+      size--;
+      return true;
+    }
     return false;
   }
 
@@ -146,5 +158,10 @@ public class QuadraticProbingHashTable <T>{
     QuadraticProbingHashTable<Integer> ht = new QuadraticProbingHashTable<>();
     System.out.println(ht.insert(1));
     System.out.println(ht.insert(1));
+
+    System.out.println("cap: " + ht.capacity() + "; size: " + ht.size());
+    System.out.println(ht.remove(1));
+    System.out.println(ht.remove(1));
+    System.out.println("cap: " + ht.capacity() + "; size: " + ht.size());
   }
 }
