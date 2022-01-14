@@ -7,10 +7,6 @@
 // int capacity()
 package ex;
 
-import java.security.Policy;
-
-import javax.xml.transform.Source;
-
 public class QuadraticProbingHashTable <T>{
 
   public HashEntry<T> [] arr;
