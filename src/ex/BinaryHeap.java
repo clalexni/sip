@@ -79,7 +79,14 @@ public class BinaryHeap <T extends Comparable<? super T>> {
   }
 
   public T deleteMin() {
-    return null;
+    if (size == 0) {
+      throw new java.util.NoSuchElementException();
+    }
+
+    T min = arr[1];
+    arr[1] = arr[size--];
+    percolateDown(1);
+    return min;
   }
 
   public boolean isEmpty() {
@@ -97,5 +104,8 @@ public class BinaryHeap <T extends Comparable<? super T>> {
     System.out.println(bh.findMin());
     bh.insert(-1);
     System.out.println(bh.findMin());
+    System.out.println("Delete min: ");
+    System.out.println(bh.deleteMin());
+    System.err.println(bh.findMin());
   }
 }
