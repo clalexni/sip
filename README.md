@@ -9,6 +9,8 @@
 - B-Tree
 - B+-Tree
 - Red Black Tree
+- hash tables
+- d-heaps and after
 
 ## Notes
 - Hash (average case O(1))
