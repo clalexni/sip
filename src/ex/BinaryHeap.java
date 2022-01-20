@@ -56,15 +56,38 @@ public class BinaryHeap <T extends Comparable<? super T>> {
     return arr[1];
   }
 
+  private void percolateDown(int hole) {
+    T tmp = arr[hole];
+    int child;
+    while (hole * 2 <= size) {
+      // select smaller child
+      child = hole * 2; // left child
+      // if right child exists and less than left child
+      if (child != size && arr[child].compareTo(arr[child+1]) > 0) {
+        child++; // use right child
+      }
+
+      // compare smaller child against tmp
+      if (arr[child].compareTo(tmp) < 0) {
+        arr[hole] = arr[child];
+        hole = child;
+      } else {
+        break;
+      }
+    }
+    arr[hole] = tmp;
+  }
+
   public T deleteMin() {
     return null;
   }
 
   public boolean isEmpty() {
-    return false;
+    return size == 0;
   }
 
   public void makeEmpty() {
+    size = 0;
   }
 
   public static void main(String[] args) {
