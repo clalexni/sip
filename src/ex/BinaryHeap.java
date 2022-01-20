@@ -20,10 +20,23 @@ public class BinaryHeap <T extends Comparable<? super T>> {
     arr = (T[])new Comparable[capacity + 1];
   }
 
-  public BinaryHeap(T[] arr) {
+  public BinaryHeap(T[] array) {
+    size = array.length;
+    this.arr = (T[]) new Comparable[(size + 2) * 11/10]; // TODO: why?
+
+    int i = 1;
+    for (T item: array) {
+      arr[i++] = item;
+    }
+    buildHeap();
   }
 
   private void buildHeap() {
+    int i = size / 2;
+    while (i > 0) {
+      percolateDown(i);
+      i--;
+    }
   }
 
   public void insert(T x) {
@@ -107,5 +120,10 @@ public class BinaryHeap <T extends Comparable<? super T>> {
     System.out.println("Delete min: ");
     System.out.println(bh.deleteMin());
     System.err.println(bh.findMin());
+
+    System.out.println("Build heap: ");
+    Integer[] arr = {10, 20 ,30, -10, -30, -20};
+    BinaryHeap<Integer> bh2 = new BinaryHeap<>(arr);
+    System.out.println(bh2.findMin());
   }
 }
