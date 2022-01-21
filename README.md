@@ -11,7 +11,9 @@
 - Red Black Tree
 - hash tables
 - d-heaps and after
-
+- sorts
+  - internal
+  - external
 ## Notes
 - Hash (average case O(1))
   - seperate chaining
